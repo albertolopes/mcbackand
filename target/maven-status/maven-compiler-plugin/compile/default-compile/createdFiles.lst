@@ -1,0 +1,7 @@
+com\springboot\cursomc\repositories\ProdutoRepository.class
+com\springboot\cursomc\repositories\CategoriaRepository.class
+com\springboot\cursomc\domain\Categoria.class
+com\springboot\cursomc\services\CategoriaService.class
+com\springboot\cursomc\resources\CategoriaResource.class
+com\springboot\cursomc\domain\Produto.class
+com\springboot\cursomc\CursomcApplication.class
