@@ -1,7 +1,10 @@
 package com.springboot.cursomc.services;
 
+import com.springboot.cursomc.services.exception.DataIntegrityException;
 import com.springboot.cursomc.services.exception.ObjectNotFoundException;
+import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.springboot.cursomc.domain.Categoria;
@@ -19,5 +22,23 @@ public class CategoriaService {
 		Optional<Categoria> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+	}
+
+	public Categoria insert(Categoria obj) {
+		return repository.save(obj);
+	}
+
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repository.deleteById(id);
+		}catch (DataIntegrityViolationException e){
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+		}
 	}
 }
