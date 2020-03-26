@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.springboot.cursomc.domain.Categoria;
 import com.springboot.cursomc.repositories.CategoriaRepository;
 
+import java.util.List;
 import java.util.Optional;;
 
 @Service
@@ -40,5 +41,9 @@ public class CategoriaService {
 		}catch (DataIntegrityViolationException e){
 			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
 		}
+	}
+
+	public List<Categoria> findAll() {
+		return repository.findAll();
 	}
 }

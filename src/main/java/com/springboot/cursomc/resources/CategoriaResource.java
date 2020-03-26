@@ -1,5 +1,6 @@
 package com.springboot.cursomc.resources;
 
+import com.springboot.cursomc.dto.CategoriaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,10 @@ import com.springboot.cursomc.domain.Categoria;
 import com.springboot.cursomc.services.CategoriaService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.CollectionTable;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value="/categorias")
@@ -17,7 +21,14 @@ public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
-	
+
+	@RequestMapping(method= RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list= service.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+
 	@RequestMapping(value="/{id}", method= RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
