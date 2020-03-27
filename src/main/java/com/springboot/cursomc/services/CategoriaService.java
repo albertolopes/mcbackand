@@ -1,8 +1,8 @@
 package com.springboot.cursomc.services;
 
+import com.springboot.cursomc.dto.CategoriaDTO;
 import com.springboot.cursomc.services.exception.DataIntegrityException;
 import com.springboot.cursomc.services.exception.ObjectNotFoundException;
-import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -54,5 +54,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 		return repository.findAll(pageRequest);
+	}
+
+	public  Categoria fromDTO(CategoriaDTO objDto){
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
