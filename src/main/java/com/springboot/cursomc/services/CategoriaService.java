@@ -1,5 +1,6 @@
 package com.springboot.cursomc.services;
 
+import com.springboot.cursomc.domain.Cliente;
 import com.springboot.cursomc.dto.CategoriaDTO;
 import com.springboot.cursomc.services.exception.DataIntegrityException;
 import com.springboot.cursomc.services.exception.ObjectNotFoundException;
@@ -33,10 +34,11 @@ public class CategoriaService {
 		return repository.save(obj);
 	}
 
-	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repository.save(obj);
-	}
+    public Categoria update(Categoria obj) {
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repository.save(newObj);
+    }
 
 	public void delete(Integer id) {
 		find(id);
@@ -58,5 +60,9 @@ public class CategoriaService {
 
 	public  Categoria fromDTO(CategoriaDTO objDto){
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
 	}
 }
