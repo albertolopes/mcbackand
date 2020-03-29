@@ -1,5 +1,6 @@
 package com.springboot.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.cursomc.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Cliente implements Serializable {
     private  String cpfOuCnpj;
     private Integer tipo;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
