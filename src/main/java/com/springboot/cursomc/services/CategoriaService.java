@@ -1,6 +1,5 @@
 package com.springboot.cursomc.services;
 
-import com.springboot.cursomc.domain.Cliente;
 import com.springboot.cursomc.dto.CategoriaDTO;
 import com.springboot.cursomc.services.exception.DataIntegrityException;
 import com.springboot.cursomc.services.exception.ObjectNotFoundException;
@@ -31,6 +30,7 @@ public class CategoriaService {
 	}
 
 	public Categoria insert(Categoria obj) {
+		obj.setId(null);
 		return repository.save(obj);
 	}
 
