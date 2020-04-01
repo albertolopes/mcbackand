@@ -11,8 +11,7 @@ import java.text.ParseException;
 
 @Configuration
 @Profile("dev")
-public class
-DevConfig {
+public class DevConfig {
 
     @Autowired
     private DBsevice dBsevice;
