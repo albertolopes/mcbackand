@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 @Entity
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,8 +21,7 @@ public class ItemPedido implements Serializable {
     private Integer quantidade;
     private Double preco;
 
-    public ItemPedido(){
-
+    public ItemPedido() {
     }
 
     public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
@@ -32,17 +32,26 @@ public class ItemPedido implements Serializable {
         this.quantidade = quantidade;
         this.preco = preco;
     }
-    public double getSubTotal(){
+
+    public double getSubTotal() {
         return (preco - desconto) * quantidade;
     }
 
     @JsonIgnore
-    public Pedido getPedido(){
+    public Pedido getPedido() {
         return id.getPedido();
     }
 
-    public Produto getProduto(){
+    public void setPedido(Pedido pedido) {
+        id.setPedido(pedido);
+    }
+
+    public Produto getProduto() {
         return id.getProduto();
+    }
+
+    public void setProduto(Produto produto) {
+        id.setProduto(produto);
     }
 
     public ItemPedidoPK getId() {
@@ -78,15 +87,27 @@ public class ItemPedido implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ItemPedido that = (ItemPedido) o;
-        return Objects.equals(id, that.id);
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ItemPedido other = (ItemPedido) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }
