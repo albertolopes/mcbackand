@@ -1,5 +1,7 @@
 package com.springboot.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +21,14 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 
 	public Categoria() {
 	}
 
+	@JsonIgnore
 	public Categoria(Integer id, String nome) {
 		super();
 		this.id = id;
